@@ -84,7 +84,8 @@ trait UploadTrait
         }
 
         $path = $file->store(Admin::config('admin.upload.directory.' . $type), Admin::config('admin.upload.disk'));
-
-        return $this->response()->success(['value' => $path]);
+        //获取正确地址
+        $link = Storage::disk(Admin::config('admin.upload.disk'))->url($path);
+        return $this->response()->success(['value' => $link]);
     }
 }
